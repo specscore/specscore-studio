@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+
+const title = 'SpecScore Studio — Specs your AI agent can actually follow';
+const description = 'SpecScore Studio is the first-party authoring surface for the open SpecScore spec format. A Claude Code plugin today, a web editor next — turning vibe-coded prompts into structured, scored specifications your AI agent can actually follow.';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="brand">SpecScore Studio</div>
+          <h1>Specs your AI agent can actually follow.</h1>
+          <p class="lede">
+            SpecScore Studio is the first-party authoring surface for the open <a href="https://specscore.md">SpecScore</a> spec format. Today: a Claude Code plugin that turns vibe-coded prompts into structured, scored specifications your agent reads before it writes a single line of code. Web editor coming next.
+          </p>
+          <div class="install">
+            <p class="install-label">Install the Claude Code plugin</p>
+            <pre class="snippet"><code>/plugin marketplace add specscore/ai-marketplace
+/plugin install specstudio@specscore</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>What it is</h2>
+          <p>
+            <strong>SpecScore</strong> is an open standard for AI-readable software specifications — a directory of Markdown files describing features, requirements, and acceptance criteria, scored for completeness before any code is written.
+          </p>
+          <p>
+            <strong>SpecScore Studio</strong> is its first-party authoring tool. The plugin delivers the spec-driven development workflow inside Claude Code: <em>ideate · specify · plan · build · verify · recap · review · ship.</em> Each gate produces a lint-clean SpecScore artifact your agent can read, parse, and follow — instead of guessing from a vibe.
+          </p>
+          <p>
+            The standalone web editor — graph view, AI chat, open/close questions, approve/reject — is on the way and will live here at <code>specscore.studio</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Built on an open standard</h2>
+          <p>
+            The format is the format. There is no proprietary extension, no required runtime, no vendor lock-in. A SpecScore spec is a folder of Markdown that any tool, any agent, or any human can read — see <a href="https://specscore.md">specscore.md</a> for the specification.
+          </p>
+          <p>
+            Studio works standalone with Claude Code. Specs author here can be consumed by any orchestrator that speaks SpecScore. Your specs travel with you.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <h4>SpecScore Studio</h4>
+            <ul>
+              <li><a href="https://github.com/specscore/specstudio-skills">Plugin source (GitHub)</a></li>
+              <li><a href="https://github.com/specscore/specscore-studio">This site (GitHub)</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Ecosystem</h4>
+            <ul>
+              <li><a href="https://specscore.md">SpecScore (the standard)</a></li>
+              <li><a href="https://github.com/specscore/ai-marketplace">SpecScore AI Marketplace</a></li>
+              <li><a href="https://github.com/specscore/specscore-cli">specscore CLI</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Org</h4>
+            <ul>
+              <li><a href="https://github.com/specscore">SpecScore on GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-meta">
+          MIT-licensed open source · built with <a href="https://astro.build">Astro</a> · deployed on <a href="https://pages.cloudflare.com">Cloudflare Pages</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
