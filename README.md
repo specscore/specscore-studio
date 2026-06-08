@@ -45,7 +45,7 @@ This is the v0 landing page. Future expansions (separate routes for `/install`, 
 ## Related
 
 - [`specscore/specstudio-skills`](https://github.com/specscore/specstudio-skills) — the Claude Code plugin this page promotes
-- [`specscore/specstudio-web`](https://github.com/specscore/specstudio-web) — the planned full web editor (separate repo)
+- [`specscore/specscore-studio-app`](https://github.com/specscore/specscore-studio-app) — the `/app/` web client
 - [`specscore/ai-marketplace`](https://github.com/specscore/ai-marketplace) — the marketplace the install command references
 - [`specscore.md`](https://specscore.md) — the standard's home, with format spec and docs
 
