@@ -2,7 +2,7 @@
 
 Landing page for [SpecScore Studio](https://specscore.studio) — the first-party authoring surface for the open [SpecScore](https://specscore.md) spec format.
 
-Astro static site, deployed to Cloudflare Pages.
+Astro static site, built by GitHub Actions and deployed to Cloudflare Workers.
 
 <!-- dev-approach:v1 -->
 ## Our approach to development
@@ -16,6 +16,10 @@ We build with our own tooling:
 - **[cover100.dev](https://cover100.dev)** — drive toward 100% test coverage
 - **[DataTug](https://datatug.io)** — query & explore data
 <!-- /dev-approach -->
+
+## SpecScore in product development
+
+[DataTug](https://datatug.app) is a product development example of the SpecScore approach: structured requirements and acceptance criteria guide the work. This site describes Studio's authoring surface; it does not imply DataTug uses the Studio editor. [Explore the tools behind DataTug](https://datatug.app/en/under-the-hood/tools-we-built/#specify).
 
 ## Quick start
 
@@ -33,18 +37,35 @@ npm run check    # astro check (TypeScript + Astro diagnostics)
 |-------------|---------------------------------|---------------------------------------------------------------|
 | Framework   | Astro 6                         | Static site, single-page landing for v1                       |
 | Styling     | Plain CSS                       | `src/styles/global.css` — dark theme, accent green `#3ddc91`  |
-| Hosting     | Cloudflare Pages                | `wrangler.jsonc` serves `dist/` with 404-page handling        |
+| Hosting     | Cloudflare Workers              | `wrangler.jsonc` serves `dist/` with 404-page handling        |
 | TypeScript  | strict                          | `npm run check` for diagnostics                               |
 
 ## Deploy
 
-Cloudflare Pages picks up the build from `dist/` per `wrangler.jsonc`. The deploy is triggered by pushing to `main` (assuming the Cloudflare Pages GitHub integration is configured on the `specscore/specscore-studio` repo with build command `npm run build` and output `dist/`).
+[Site build and deploy](.github/workflows/site-deploy.yml) installs from `pnpm-lock.yaml` with `--frozen-lockfile`, runs Astro checks, and builds `dist/` on pull requests, pushes to `main`, and manual runs. The `specscore-studio-deployment` artifact contains a tar archive of the complete `dist/`, `wrangler.jsonc`, and source `REVISION`.
 
-For manual deploy:
+Only pushes to `main` and manual runs on `main` enter the `production` environment. The deployment job downloads that same run's artifact, verifies its revision, and publishes to the `specscore-studio` Cloudflare Worker using pinned Wrangler with `--no-bundle`. It does not reinstall project dependencies or rebuild the site.
 
-```bash
-npx wrangler pages deploy dist
+Automatic publication is disabled by default. Set the repository variable `CLOUDFLARE_DEPLOY_ENABLED` to `true` only when credentials and the production environment are ready. Every build still saves the artifact while publication is disabled; the run summary distinguishes the saved artifact from a deployment. An operator can download `site.tar.gz` and `site.tar.gz.sha256`, verify and extract them, and publish the exact packaged output with the pinned Wrangler command below, without rebuilding.
+
+Set `EXPECTED_SOURCE_SHA` to the full `head_sha` from the verified GitHub Actions run that produced the downloaded artifact.
+
+```sh
+set -eu
+: "${EXPECTED_SOURCE_SHA:?Set to the verified GitHub run head_sha}"
+mkdir deployment
+shasum -a 256 -c site.tar.gz.sha256
+tar -xzf site.tar.gz -C deployment
+cd deployment
+test "$(cat REVISION)" = "$EXPECTED_SOURCE_SHA"
+npm exec --yes --package=wrangler@4.120.1 -- wrangler deploy --config wrangler.jsonc --no-bundle
 ```
+
+The operator supplies `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` through the existing local environment; credentials are not part of the artifact.
+
+Configure `CLOUDFLARE_API_TOKEN` as a secret available to this repository and `CLOUDFLARE_ACCOUNT_ID` as a variable for the existing account. Restrict the `production` environment to `main` and configure any required approvals. After the first GitHub deployment is verified, retire the legacy Cloudflare Git production build trigger so GitHub Actions owns publication.
+
+For a local build matching CI, use `pnpm install --frozen-lockfile && pnpm build`. The pnpm lockfile is the deployment dependency contract.
 
 ## What's on the page
 
