@@ -17,6 +17,10 @@ We build with our own tooling:
 - **[DataTug](https://datatug.io)** — query & explore data
 <!-- /dev-approach -->
 
+## SpecScore in product development
+
+[DataTug](https://datatug.app) is a product development example of the SpecScore approach: structured requirements and acceptance criteria guide the work. This site describes Studio's authoring surface; it does not imply DataTug uses the Studio editor. [Explore the tools behind DataTug](https://datatug.app/en/under-the-hood/tools-we-built/#specify).
+
 ## Quick start
 
 ```bash
