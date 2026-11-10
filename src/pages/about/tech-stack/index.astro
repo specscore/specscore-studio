@@ -1,0 +1,54 @@
+---
+import '../../../styles/global.css';
+
+const title = 'SpecScore Studio tech stack — website, agent skills, and browser workspace';
+const description = 'How the Astro marketing site, SpecStudio agent skills, open SpecScore format, and separate Angular browser workspace fit together.';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'AboutPage', '@id': `${canonicalURL}#about`, url: canonicalURL, name: title, description, inLanguage: 'en' },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).toString() },
+      { '@type': 'ListItem', position: 2, name: 'Tech stack', item: canonicalURL },
+    ] },
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <title>{title}</title>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
+  </head>
+  <body>
+    <main class="tech-stack-page">
+      <div class="container">
+        <nav aria-label="Breadcrumb"><a href="/">Home</a> / Tech stack</nav>
+        <div class="brand">SpecScore Studio</div>
+        <h1>The technology behind SpecScore Studio</h1>
+        <p class="lede">A tech stack is the tools used to build and run a product. Studio brings SpecScore specifications into an agent workflow and a browser workspace, while this site explains how to use them.</p>
+
+        <section class="section"><h2>This website</h2><p>This marketing site is static HTML built with Astro 6 and plain CSS. GitHub Actions checks and packages its output; a Cloudflare Worker serves the published files. The browser workspace at <a href="/app/">/app/</a> is deployed from a separate repository, so the informational pages stay independent of its sign-in flow.</p></section>
+        <section class="section"><h2>The product</h2><p>The <a href="https://github.com/specscore/specstudio-skills">SpecStudio agent skills</a> guide ideation, specification, planning, implementation, and verification. They write the open <a href="https://specscore.md/">SpecScore Markdown format</a>, which the <a href="https://github.com/specscore/specscore-cli">SpecScore CLI</a> can lint and navigate. The separate <a href="https://github.com/specscore/specscore-studio-app">Angular browser workspace</a> lets people sign in and browse repository specifications; browser editing is planned.</p></section>
+        <section class="section"><h2>Our tools used here</h2><p>SpecScore keeps the requirements and acceptance criteria in files that travel with the code. The agent skills use those files as stage gates, so a feature's intent can be checked before and after implementation. The <a href="https://github.com/specscore/ai-marketplace">SpecScore AI Marketplace</a> distributes the plugins to supported assistants.</p></section>
+        <section class="section"><h2>Related projects</h2><p><a href="https://datatug.app/">DataTug</a> is one example of a product whose development uses SpecScore requirements. Visit <a href="https://specscore.md/about/tech-stack/">SpecScore's tech stack</a> for the format and CLI, or <a href="/app/">open Studio's browser workspace</a> to explore specs.</p></section>
+      </div>
+    </main>
+    <footer class="site-footer"><div class="container"><div class="footer-grid">
+      <div><h4>SpecScore Studio</h4><ul><li><a href="/">Home</a></li><li><a href="/about/tech-stack/">Tech stack</a></li><li><a href="/app/">Browser workspace</a></li></ul></div>
+      <div><h4>Source</h4><ul><li><a href="https://github.com/specscore/specstudio-skills">Agent skills</a></li><li><a href="https://github.com/specscore/specscore-studio">This site</a></li></ul></div>
+      <div><h4>Ecosystem</h4><ul><li><a href="https://specscore.md/">SpecScore format</a></li><li><a href="https://github.com/specscore/specscore-cli">SpecScore CLI</a></li></ul></div>
+    </div><div class="footer-meta">MIT-licensed open source · built with <a href="https://astro.build">Astro</a> · deployed on <a href="https://developers.cloudflare.com/workers/">Cloudflare Workers</a></div></div></footer>
+  </body>
+</html>
