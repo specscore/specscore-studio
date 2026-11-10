@@ -1,0 +1,8 @@
+# SpecScore Studio
+
+> SpecScore Studio offers agent skills and a browser workspace for the open SpecScore specification format.
+
+- [Home](https://specscore.studio/): Agent workflow and browser workspace.
+- [Tech stack](https://specscore.studio/about/tech-stack/): Marketing site, agent skills, format, CLI, and separate browser app.
+- [Browser workspace](https://specscore.studio/app/): Browse specifications in GitHub repositories.
+- [SpecScore format](https://specscore.md/): Open specification format and documentation.
